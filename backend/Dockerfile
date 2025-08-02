@@ -5,8 +5,11 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 
-# Install dependencies
-RUN npm ci --only=production
+# Install dependencies with production flag
+RUN npm ci --only=production --verbose
+
+# Verify installation
+RUN npm list --depth=0
 
 # Copy source code
 COPY . .
@@ -19,10 +22,10 @@ RUN adduser -S backend -u 1001
 RUN chown -R backend:nodejs /app
 USER backend
 
-EXPOSE 5000
+EXPOSE 8000
 
-# Health check
+# Health check (updated for correct port)
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD node -e "require('http').get('http://localhost:5000/health', (res) => process.exit(res.statusCode === 200 ? 0 : 1))"
+  CMD node -e "require('http').get('http://localhost:8000/api/health', (res) => process.exit(res.statusCode === 200 ? 0 : 1)).on('error', () => process.exit(1))"
 
-CMD ["npm", "start"] 
+CMD ["node", "server.js"] 

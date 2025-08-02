@@ -1,5 +1,4 @@
-version: '3.8'
-
+# Development docker-compose for local builds
 services:
   mongodb:
     image: mongo:7-jammy
@@ -23,10 +22,12 @@ services:
       start_period: 30s
 
   backend:
-    image: ghcr.io/skpokala/ice-breaker-app/backend:latest
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
     restart: unless-stopped
     environment:
-      NODE_ENV: production
+      NODE_ENV: development
       PORT: 8000
       MONGODB_URI: mongodb://admin:password123@mongodb:27017/icebreaker?authSource=admin
     ports:
@@ -36,6 +37,9 @@ services:
         condition: service_healthy
     networks:
       - app-network
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
     healthcheck:
       test: ["CMD", "node", "-e", "require('http').get('http://localhost:8000/api/health', (res) => process.exit(res.statusCode === 200 ? 0 : 1)).on('error', () => process.exit(1))"]
       interval: 30s
@@ -44,7 +48,9 @@ services:
       start_period: 40s
 
   frontend:
-    image: ghcr.io/skpokala/ice-breaker-app/frontend:latest
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
     restart: unless-stopped
     ports:
       - "3000:80"

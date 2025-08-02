@@ -1,11 +1,12 @@
-# Release 1.0.3
+# Release 1.0.5
 
 **Release Date:** 2025-08-02
 
-**Changes:** 4 commits by 1 contributor
+**Changes:** 6 commits by 1 contributor
 
 ## ✨ New Features
 
+- feat: Add comprehensive release notes system (1eae71f)
 - feat: Add automatic versioning system (a26296a)
 
 ## 🔧 Other Changes
@@ -14,5 +15,5 @@
 
 ## 👥 Contributors
 
-- Sandeep Kumar Pokala (4 commits)
+- Sandeep Kumar Pokala (6 commits)
 

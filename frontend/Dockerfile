@@ -6,13 +6,20 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 
-# Install dependencies
-RUN npm ci
+# Clean install with verbose output for debugging
+RUN npm ci --verbose
 
-# Copy source code
+# Verify installation
+RUN npm list --depth=0
+
+# Copy source code (excluding node_modules)
 COPY . .
 
-# Build the app
+# Set CI environment variable
+ENV CI=true
+ENV GENERATE_SOURCEMAP=false
+
+# Build the app with error handling
 RUN npm run build
 
 # Production stage

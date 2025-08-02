@@ -1,5 +1,69 @@
 [
   {
+    "version": "1.0.5",
+    "date": "2025-08-02T20:02:09.319Z",
+    "notes": "# Release 1.0.5\n\n**Release Date:** 2025-08-02\n\n**Changes:** 6 commits by 1 contributor\n\n## ✨ New Features\n\n- feat: Add comprehensive release notes system (1eae71f)\n- feat: Add automatic versioning system (a26296a)\n\n## 🔧 Other Changes\n\n- Initial commit: Team Ice Breaker App with user name functionality (0d872da)\n\n## 👥 Contributors\n\n- Sandeep Kumar Pokala (6 commits)\n\n",
+    "summary": {
+      "features": 2,
+      "fixes": 0,
+      "improvements": 0,
+      "breaking": 0,
+      "total": 3
+    },
+    "commits": [
+      {
+        "hash": "1eae71f",
+        "subject": "feat: Add comprehensive release notes system",
+        "author": "Sandeep Kumar Pokala",
+        "date": "2025-08-02"
+      },
+      {
+        "hash": "a26296a",
+        "subject": "feat: Add automatic versioning system",
+        "author": "Sandeep Kumar Pokala",
+        "date": "2025-08-02"
+      },
+      {
+        "hash": "0d872da",
+        "subject": "Initial commit: Team Ice Breaker App with user name functionality",
+        "author": "Sandeep Kumar Pokala",
+        "date": "2025-08-02"
+      }
+    ]
+  },
+  {
+    "version": "1.0.4",
+    "date": "2025-08-02T20:01:55.456Z",
+    "notes": "# Release 1.0.4\n\n**Release Date:** 2025-08-02\n\n**Changes:** 5 commits by 1 contributor\n\n## ✨ New Features\n\n- feat: Add comprehensive release notes system (1eae71f)\n- feat: Add automatic versioning system (a26296a)\n\n## 🔧 Other Changes\n\n- Initial commit: Team Ice Breaker App with user name functionality (0d872da)\n\n## 👥 Contributors\n\n- Sandeep Kumar Pokala (5 commits)\n\n",
+    "summary": {
+      "features": 2,
+      "fixes": 0,
+      "improvements": 0,
+      "breaking": 0,
+      "total": 3
+    },
+    "commits": [
+      {
+        "hash": "1eae71f",
+        "subject": "feat: Add comprehensive release notes system",
+        "author": "Sandeep Kumar Pokala",
+        "date": "2025-08-02"
+      },
+      {
+        "hash": "a26296a",
+        "subject": "feat: Add automatic versioning system",
+        "author": "Sandeep Kumar Pokala",
+        "date": "2025-08-02"
+      },
+      {
+        "hash": "0d872da",
+        "subject": "Initial commit: Team Ice Breaker App with user name functionality",
+        "author": "Sandeep Kumar Pokala",
+        "date": "2025-08-02"
+      }
+    ]
+  },
+  {
     "version": "1.0.3",
     "date": "2025-08-02T20:01:32.909Z",
     "notes": "# Release 1.0.3\n\n**Release Date:** 2025-08-02\n\n**Changes:** 4 commits by 1 contributor\n\n## ✨ New Features\n\n- feat: Add automatic versioning system (a26296a)\n\n## 🔧 Other Changes\n\n- Initial commit: Team Ice Breaker App with user name functionality (0d872da)\n\n## 👥 Contributors\n\n- Sandeep Kumar Pokala (4 commits)\n\n",

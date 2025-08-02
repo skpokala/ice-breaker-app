@@ -14,6 +14,11 @@
     "version:major": "node scripts/increment-version.js major",
     "version:check": "node -e \"console.log('Current version:', require('./package.json').version)\"",
     "release-notes": "node scripts/generate-release-notes.js $(node -p require('./package.json').version)",
+    "docker:dev": "./scripts/deploy.sh dev",
+    "docker:prod": "./scripts/deploy.sh prod",
+    "docker:build": "./scripts/deploy.sh build",
+    "docker:stop": "./scripts/deploy.sh stop",
+    "docker:health": "./scripts/deploy.sh health",
     "deploy:patch": "npm run version:patch && git add . && git commit -m \"feat: release version $(node -p require('./package.json').version)\" && git push",
     "deploy:minor": "npm run version:minor && git add . && git commit -m \"feat: minor release version $(node -p require('./package.json').version)\" && git push",
     "deploy:major": "npm run version:major && git add . && git commit -m \"feat: major release version $(node -p require('./package.json').version)\" && git push"
