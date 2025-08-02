@@ -11,9 +11,11 @@ import {
   Users,
   RotateCcw,
   Calendar,
-  TrendingUp
+  TrendingUp,
+  FileText
 } from 'lucide-react';
 import axios from 'axios';
+import ReleaseNotes from './ReleaseNotes';
 
 const AdminInterface = () => {
   const location = useLocation();
@@ -51,6 +53,13 @@ const AdminInterface = () => {
               <Users size={16} />
               Teams
             </Link>
+            <Link 
+              to="/admin/releases" 
+              className={`btn ${location.pathname.includes('releases') ? 'btn-primary' : 'btn-secondary'}`}
+            >
+              <FileText size={16} />
+              Release Notes
+            </Link>
           </div>
         </div>
       </div>
@@ -66,6 +75,7 @@ const AdminInterface = () => {
           <Route path="/questions" element={<QuestionsManager />} />
           <Route path="/analytics" element={<Analytics />} />
           <Route path="/teams" element={<TeamsManager />} />
+          <Route path="/releases" element={<ReleaseNotes />} />
         </Routes>
       </div>
     </div>

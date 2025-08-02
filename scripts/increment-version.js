@@ -81,6 +81,15 @@ function main() {
     fs.writeFileSync(versionJsonPath, JSON.stringify(versionInfo, null, 2));
     console.log(`📝 Created version.json: ${newVersion}`);
 
+    // Generate release notes
+    try {
+      console.log('📋 Generating release notes...');
+      const { execSync } = require('child_process');
+      execSync(`node scripts/generate-release-notes.js ${newVersion}`, { stdio: 'inherit' });
+    } catch (error) {
+      console.warn('⚠️  Could not generate release notes:', error.message);
+    }
+
     if (allSuccess) {
       console.log(`✅ Successfully updated all packages to version ${newVersion}`);
       process.exit(0);
