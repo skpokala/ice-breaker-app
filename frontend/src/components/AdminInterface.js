@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import { 
-  Settings, 
   BarChart3, 
   MessageSquare, 
   Plus, 
@@ -10,7 +9,6 @@ import {
   Home,
   Users,
   RotateCcw,
-  Calendar,
   TrendingUp,
   FileText
 } from 'lucide-react';

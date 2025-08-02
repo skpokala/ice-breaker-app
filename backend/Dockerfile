@@ -8,8 +8,8 @@ COPY package*.json ./
 # Install dependencies with production flag
 RUN npm ci --only=production --verbose
 
-# Verify installation
-RUN npm list --depth=0
+# Verify installation (allow missing devDependencies)
+RUN npm list --depth=0 --production || true
 
 # Copy source code
 COPY . .

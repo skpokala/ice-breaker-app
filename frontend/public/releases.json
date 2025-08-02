@@ -1,5 +1,43 @@
 [
   {
+    "version": "1.0.6",
+    "date": "2025-08-02T20:24:19.989Z",
+    "notes": "# Release 1.0.6\n\n**Release Date:** 2025-08-02\n\n**Changes:** 8 commits by 1 contributor\n\n## ✨ New Features\n\n- feat: Add comprehensive Docker deployment with ghcr.io (a7a9f38)\n- feat: Add comprehensive release notes system (1eae71f)\n- feat: Add automatic versioning system (a26296a)\n\n## 🔧 Other Changes\n\n- Initial commit: Team Ice Breaker App with user name functionality (0d872da)\n\n## 👥 Contributors\n\n- Sandeep Kumar Pokala (8 commits)\n\n",
+    "summary": {
+      "features": 3,
+      "fixes": 0,
+      "improvements": 0,
+      "breaking": 0,
+      "total": 4
+    },
+    "commits": [
+      {
+        "hash": "a7a9f38",
+        "subject": "feat: Add comprehensive Docker deployment with ghcr.io",
+        "author": "Sandeep Kumar Pokala",
+        "date": "2025-08-02"
+      },
+      {
+        "hash": "1eae71f",
+        "subject": "feat: Add comprehensive release notes system",
+        "author": "Sandeep Kumar Pokala",
+        "date": "2025-08-02"
+      },
+      {
+        "hash": "a26296a",
+        "subject": "feat: Add automatic versioning system",
+        "author": "Sandeep Kumar Pokala",
+        "date": "2025-08-02"
+      },
+      {
+        "hash": "0d872da",
+        "subject": "Initial commit: Team Ice Breaker App with user name functionality",
+        "author": "Sandeep Kumar Pokala",
+        "date": "2025-08-02"
+      }
+    ]
+  },
+  {
     "version": "1.0.5",
     "date": "2025-08-02T20:02:09.319Z",
     "notes": "# Release 1.0.5\n\n**Release Date:** 2025-08-02\n\n**Changes:** 6 commits by 1 contributor\n\n## ✨ New Features\n\n- feat: Add comprehensive release notes system (1eae71f)\n- feat: Add automatic versioning system (a26296a)\n\n## 🔧 Other Changes\n\n- Initial commit: Team Ice Breaker App with user name functionality (0d872da)\n\n## 👥 Contributors\n\n- Sandeep Kumar Pokala (6 commits)\n\n",
