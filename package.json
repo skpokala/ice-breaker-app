@@ -1,6 +1,6 @@
 {
   "name": "team-ice-breaker-app",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A team ice breaker questions app with admin controls",
   "main": "index.js",
   "scripts": {
