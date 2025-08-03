@@ -1,8 +1,8 @@
-# Release 1.0.12
+# Release 1.0.13
 
 **Release Date:** 2025-08-03
 
-**Changes:** 36 commits by 1 contributor
+**Changes:** 38 commits by 1 contributor
 
 ## ✨ New Features
 
@@ -29,6 +29,10 @@
 - fix: Remove conflicting CI/CD workflow (4ffab4f)
 - fix: Docker build issues (e235a63)
 
+## 🚀 Improvements
+
+- chore: update release notes for v1.0.12 (8ad62d6)
+
 ## 🔧 Other Changes
 
 - MAJOR SIMPLIFICATION: Rebuild Docker workflow from scratch (0ee5a66)
@@ -41,5 +45,5 @@
 
 ## 👥 Contributors
 
-- Sandeep Kumar Pokala (36 commits)
+- Sandeep Kumar Pokala (38 commits)
 
