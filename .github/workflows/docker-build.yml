@@ -18,6 +18,7 @@ jobs:
     permissions:
       contents: read
       packages: write
+      id-token: write
 
     steps:
     - name: Checkout repository
@@ -44,11 +45,15 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
 
+    - name: Convert repository name to lowercase
+      run: |
+        echo "REPO_LOWER=${GITHUB_REPOSITORY,,}" >> $GITHUB_ENV
+
     - name: Extract metadata for backend
       id: meta-backend
       uses: docker/metadata-action@v5
       with:
-        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/backend
+        images: ${{ env.REGISTRY }}/${{ env.REPO_LOWER }}/backend
         tags: |
           type=ref,event=branch
           type=ref,event=pr
@@ -60,7 +65,7 @@ jobs:
       id: meta-frontend
       uses: docker/metadata-action@v5
       with:
-        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/frontend
+        images: ${{ env.REGISTRY }}/${{ env.REPO_LOWER }}/frontend
         tags: |
           type=ref,event=branch
           type=ref,event=pr
@@ -116,11 +121,11 @@ jobs:
         echo "## 🚀 Deployment Summary" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "### Images Published:" >> $GITHUB_STEP_SUMMARY
-        echo "- **Backend**: \`${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/backend:latest\`" >> $GITHUB_STEP_SUMMARY
-        echo "- **Frontend**: \`${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/frontend:latest\`" >> $GITHUB_STEP_SUMMARY
+        echo "- **Backend**: \`${{ env.REGISTRY }}/${{ env.REPO_LOWER }}/backend:latest\`" >> $GITHUB_STEP_SUMMARY
+        echo "- **Frontend**: \`${{ env.REGISTRY }}/${{ env.REPO_LOWER }}/frontend:latest\`" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "### Quick Deploy:" >> $GITHUB_STEP_SUMMARY
         echo "\`\`\`bash" >> $GITHUB_STEP_SUMMARY
-        echo "docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/backend:latest" >> $GITHUB_STEP_SUMMARY
-        echo "docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/frontend:latest" >> $GITHUB_STEP_SUMMARY
+        echo "docker pull ${{ env.REGISTRY }}/${{ env.REPO_LOWER }}/backend:latest" >> $GITHUB_STEP_SUMMARY
+        echo "docker pull ${{ env.REGISTRY }}/${{ env.REPO_LOWER }}/frontend:latest" >> $GITHUB_STEP_SUMMARY
         echo "\`\`\`" >> $GITHUB_STEP_SUMMARY 
