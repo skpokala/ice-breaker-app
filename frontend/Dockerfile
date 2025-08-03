@@ -18,6 +18,7 @@ COPY . .
 # Set CI environment variable
 ENV CI=true
 ENV GENERATE_SOURCEMAP=false
+ENV NODE_OPTIONS="--max-old-space-size=4096"
 
 # Build the app with error handling
 RUN npm run build
