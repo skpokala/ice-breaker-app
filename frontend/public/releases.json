@@ -1,5 +1,169 @@
 [
   {
+    "version": "1.0.11",
+    "date": "2025-08-03T23:34:09.575Z",
+    "notes": "# Release 1.0.11\n\n**Release Date:** 2025-08-03\n\n**Changes:** 34 commits by 1 contributor\n\n## ✨ New Features\n\n- Fix Docker workflow: consolidate builds, add fallback registry, optimize performance (274ce32)\n- test: add minimal GitHub Actions workflow to isolate failures (c69f765)\n- feat: add automated Docker build and push system (7cbc06d)\n- feat: Add comprehensive Docker deployment with ghcr.io (a7a9f38)\n- feat: Add comprehensive release notes system (1eae71f)\n- feat: Add automatic versioning system (a26296a)\n\n## 🐛 Bug Fixes\n\n- fix: update main Docker build workflow with GHCR fixes and lowercase repo names (f8e7252)\n- fix: remove GitHub CLI user API call causing 403 Forbidden error (86eefd1)\n- fix: resolve GitHub Actions Docker build failures (3463821)\n- fix: restore correct react-scripts version - was corrupted during cleanup (7f5ab0a)\n- fix: comprehensive GHCR workflow improvements - separate build/push steps, better debugging, simplified naming (58c3954)\n- fix: resolve ghcr.io 403 Forbidden with proper permissions and lowercase repo names (6e55f69)\n- fix: BOTH builds now work - node_modules corruption + missing package-lock.json resolved (c277cb9)\n- fix: clean node_modules - local builds work, investigating GitHub Actions failures (9fe78d8)\n- fix: COMPREHENSIVE GitHub Actions Docker build fix - node modules corruption resolved, simplified workflow added, all builds verified working (2486d9f)\n- fix: enhance GitHub Actions Docker builds with debugging (45183d4)\n- fix: optimize GitHub Actions Docker builds (59d34ff)\n- fix: Remove conflicting CI/CD workflow (4ffab4f)\n- fix: Docker build issues (e235a63)\n\n## 🔧 Other Changes\n\n- CRITICAL FIX: Implement proper fallback logic for Docker workflow (b7aa332)\n- trigger: GHCR authentication test (515adde)\n- add: Docker Hub backup workflow and immediate fix plan for persistent GHCR 403 errors (63ae775)\n- add: GHCR authentication test workflow and setup guide (0234898)\n- trigger: enable GitHub Actions Docker builds (000c531)\n- Initial commit: Team Ice Breaker App with user name functionality (0d872da)\n\n## 👥 Contributors\n\n- Sandeep Kumar Pokala (34 commits)\n\n",
+    "summary": {
+      "features": 6,
+      "fixes": 13,
+      "improvements": 0,
+      "breaking": 0,
+      "total": 25
+    },
+    "commits": [
+      {
+        "hash": "274ce32",
+        "subject": "Fix Docker workflow: consolidate builds, add fallback registry, optimize performance",
+        "author": "Sandeep Kumar Pokala",
+        "date": "2025-08-03"
+      },
+      {
+        "hash": "c69f765",
+        "subject": "test: add minimal GitHub Actions workflow to isolate failures",
+        "author": "Sandeep Kumar Pokala",
+        "date": "2025-08-03"
+      },
+      {
+        "hash": "7cbc06d",
+        "subject": "feat: add automated Docker build and push system",
+        "author": "Sandeep Kumar Pokala",
+        "date": "2025-08-03"
+      },
+      {
+        "hash": "a7a9f38",
+        "subject": "feat: Add comprehensive Docker deployment with ghcr.io",
+        "author": "Sandeep Kumar Pokala",
+        "date": "2025-08-02"
+      },
+      {
+        "hash": "1eae71f",
+        "subject": "feat: Add comprehensive release notes system",
+        "author": "Sandeep Kumar Pokala",
+        "date": "2025-08-02"
+      },
+      {
+        "hash": "a26296a",
+        "subject": "feat: Add automatic versioning system",
+        "author": "Sandeep Kumar Pokala",
+        "date": "2025-08-02"
+      },
+      {
+        "hash": "f8e7252",
+        "subject": "fix: update main Docker build workflow with GHCR fixes and lowercase repo names",
+        "author": "Sandeep Kumar Pokala",
+        "date": "2025-08-03"
+      },
+      {
+        "hash": "86eefd1",
+        "subject": "fix: remove GitHub CLI user API call causing 403 Forbidden error",
+        "author": "Sandeep Kumar Pokala",
+        "date": "2025-08-03"
+      },
+      {
+        "hash": "3463821",
+        "subject": "fix: resolve GitHub Actions Docker build failures",
+        "author": "Sandeep Kumar Pokala",
+        "date": "2025-08-03"
+      },
+      {
+        "hash": "7f5ab0a",
+        "subject": "fix: restore correct react-scripts version - was corrupted during cleanup",
+        "author": "Sandeep Kumar Pokala",
+        "date": "2025-08-03"
+      },
+      {
+        "hash": "58c3954",
+        "subject": "fix: comprehensive GHCR workflow improvements - separate build/push steps, better debugging, simplified naming",
+        "author": "Sandeep Kumar Pokala",
+        "date": "2025-08-03"
+      },
+      {
+        "hash": "6e55f69",
+        "subject": "fix: resolve ghcr.io 403 Forbidden with proper permissions and lowercase repo names",
+        "author": "Sandeep Kumar Pokala",
+        "date": "2025-08-03"
+      },
+      {
+        "hash": "c277cb9",
+        "subject": "fix: BOTH builds now work - node_modules corruption + missing package-lock.json resolved",
+        "author": "Sandeep Kumar Pokala",
+        "date": "2025-08-03"
+      },
+      {
+        "hash": "9fe78d8",
+        "subject": "fix: clean node_modules - local builds work, investigating GitHub Actions failures",
+        "author": "Sandeep Kumar Pokala",
+        "date": "2025-08-03"
+      },
+      {
+        "hash": "2486d9f",
+        "subject": "fix: COMPREHENSIVE GitHub Actions Docker build fix - node modules corruption resolved, simplified workflow added, all builds verified working",
+        "author": "Sandeep Kumar Pokala",
+        "date": "2025-08-03"
+      },
+      {
+        "hash": "45183d4",
+        "subject": "fix: enhance GitHub Actions Docker builds with debugging",
+        "author": "Sandeep Kumar Pokala",
+        "date": "2025-08-03"
+      },
+      {
+        "hash": "59d34ff",
+        "subject": "fix: optimize GitHub Actions Docker builds",
+        "author": "Sandeep Kumar Pokala",
+        "date": "2025-08-03"
+      },
+      {
+        "hash": "4ffab4f",
+        "subject": "fix: Remove conflicting CI/CD workflow",
+        "author": "Sandeep Kumar Pokala",
+        "date": "2025-08-02"
+      },
+      {
+        "hash": "e235a63",
+        "subject": "fix: Docker build issues",
+        "author": "Sandeep Kumar Pokala",
+        "date": "2025-08-02"
+      },
+      {
+        "hash": "b7aa332",
+        "subject": "CRITICAL FIX: Implement proper fallback logic for Docker workflow",
+        "author": "Sandeep Kumar Pokala",
+        "date": "2025-08-03"
+      },
+      {
+        "hash": "515adde",
+        "subject": "trigger: GHCR authentication test",
+        "author": "Sandeep Kumar Pokala",
+        "date": "2025-08-03"
+      },
+      {
+        "hash": "63ae775",
+        "subject": "add: Docker Hub backup workflow and immediate fix plan for persistent GHCR 403 errors",
+        "author": "Sandeep Kumar Pokala",
+        "date": "2025-08-03"
+      },
+      {
+        "hash": "0234898",
+        "subject": "add: GHCR authentication test workflow and setup guide",
+        "author": "Sandeep Kumar Pokala",
+        "date": "2025-08-03"
+      },
+      {
+        "hash": "000c531",
+        "subject": "trigger: enable GitHub Actions Docker builds",
+        "author": "Sandeep Kumar Pokala",
+        "date": "2025-08-03"
+      },
+      {
+        "hash": "0d872da",
+        "subject": "Initial commit: Team Ice Breaker App with user name functionality",
+        "author": "Sandeep Kumar Pokala",
+        "date": "2025-08-02"
+      }
+    ]
+  },
+  {
     "version": "1.0.10",
     "date": "2025-08-03T23:26:41.988Z",
     "notes": "# Release 1.0.10\n\n**Release Date:** 2025-08-03\n\n**Changes:** 32 commits by 1 contributor\n\n## ✨ New Features\n\n- Fix Docker workflow: consolidate builds, add fallback registry, optimize performance (274ce32)\n- test: add minimal GitHub Actions workflow to isolate failures (c69f765)\n- feat: add automated Docker build and push system (7cbc06d)\n- feat: Add comprehensive Docker deployment with ghcr.io (a7a9f38)\n- feat: Add comprehensive release notes system (1eae71f)\n- feat: Add automatic versioning system (a26296a)\n\n## 🐛 Bug Fixes\n\n- fix: update main Docker build workflow with GHCR fixes and lowercase repo names (f8e7252)\n- fix: remove GitHub CLI user API call causing 403 Forbidden error (86eefd1)\n- fix: resolve GitHub Actions Docker build failures (3463821)\n- fix: restore correct react-scripts version - was corrupted during cleanup (7f5ab0a)\n- fix: comprehensive GHCR workflow improvements - separate build/push steps, better debugging, simplified naming (58c3954)\n- fix: resolve ghcr.io 403 Forbidden with proper permissions and lowercase repo names (6e55f69)\n- fix: BOTH builds now work - node_modules corruption + missing package-lock.json resolved (c277cb9)\n- fix: clean node_modules - local builds work, investigating GitHub Actions failures (9fe78d8)\n- fix: COMPREHENSIVE GitHub Actions Docker build fix - node modules corruption resolved, simplified workflow added, all builds verified working (2486d9f)\n- fix: enhance GitHub Actions Docker builds with debugging (45183d4)\n- fix: optimize GitHub Actions Docker builds (59d34ff)\n- fix: Remove conflicting CI/CD workflow (4ffab4f)\n- fix: Docker build issues (e235a63)\n\n## 🔧 Other Changes\n\n- trigger: GHCR authentication test (515adde)\n- add: Docker Hub backup workflow and immediate fix plan for persistent GHCR 403 errors (63ae775)\n- add: GHCR authentication test workflow and setup guide (0234898)\n- trigger: enable GitHub Actions Docker builds (000c531)\n- Initial commit: Team Ice Breaker App with user name functionality (0d872da)\n\n## 👥 Contributors\n\n- Sandeep Kumar Pokala (32 commits)\n\n",
