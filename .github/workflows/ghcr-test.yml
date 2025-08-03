@@ -1,0 +1,66 @@
+name: GHCR Authentication Test
+
+on:
+  workflow_dispatch: # Manual trigger only
+  push:
+    branches: [ ghcr-test ]
+
+env:
+  REGISTRY: ghcr.io
+
+jobs:
+  test-ghcr-auth:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Show repository info
+      run: |
+        echo "Repository: ${{ github.repository }}"
+        echo "Repository Owner: ${{ github.repository_owner }}"
+        echo "Repository Name: ${{ github.event.repository.name }}"
+        echo "Actor: ${{ github.actor }}"
+        echo "Token exists: ${{ secrets.GITHUB_TOKEN != '' }}"
+
+    - name: Test GitHub CLI auth
+      run: |
+        echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
+        gh auth status
+        gh api user
+
+    - name: Log in to Container Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ${{ env.REGISTRY }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Test registry access
+      run: |
+        echo "Testing registry access..."
+        docker info | grep -i registry || true
+        echo "Testing image list (should fail gracefully if no images):"
+        docker search hello-world || true
+
+    - name: Create test image
+      run: |
+        echo "FROM alpine:latest" > Dockerfile.test
+        echo "RUN echo 'Hello GHCR'" >> Dockerfile.test
+        docker build -f Dockerfile.test -t ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/test:latest .
+
+    - name: Test push to GHCR
+      run: |
+        echo "Attempting to push test image..."
+        docker push ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/test:latest
+
+    - name: Cleanup
+      run: |
+        rm -f Dockerfile.test
+        docker rmi ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/test:latest || true 
