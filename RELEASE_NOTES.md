@@ -1,8 +1,8 @@
-# Release 1.0.13
+# Release 1.0.14
 
 **Release Date:** 2025-08-03
 
-**Changes:** 38 commits by 1 contributor
+**Changes:** 42 commits by 1 contributor
 
 ## ✨ New Features
 
@@ -31,12 +31,15 @@
 
 ## 🚀 Improvements
 
+- chore: update release notes for v1.0.13 (f20e599)
 - chore: update release notes for v1.0.12 (8ad62d6)
 
 ## 🔧 Other Changes
 
+- Merge ghcr-test branch: Complete Docker workflow fixes (620fa2c)
 - MAJOR SIMPLIFICATION: Rebuild Docker workflow from scratch (0ee5a66)
 - CRITICAL FIX: Implement proper fallback logic for Docker workflow (b7aa332)
+- Merge pull request #1 from skpokala/ghcr-test (38249f1)
 - trigger: GHCR authentication test (515adde)
 - add: Docker Hub backup workflow and immediate fix plan for persistent GHCR 403 errors (63ae775)
 - add: GHCR authentication test workflow and setup guide (0234898)
@@ -45,5 +48,5 @@
 
 ## 👥 Contributors
 
-- Sandeep Kumar Pokala (38 commits)
+- Sandeep Kumar Pokala (42 commits)
 
