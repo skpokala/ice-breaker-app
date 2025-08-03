@@ -1,8 +1,8 @@
-# Release 1.0.16
+# Release 1.0.17
 
 **Release Date:** 2025-08-03
 
-**Changes:** 45 commits by 1 contributor
+**Changes:** 47 commits by 1 contributor
 
 ## ✨ New Features
 
@@ -31,6 +31,7 @@
 
 ## 🚀 Improvements
 
+- chore: final release notes update for v1.0.16 (288fad1)
 - chore: update release notes for v1.0.14 (b285dc0)
 - chore: update release notes for v1.0.13 (f20e599)
 - chore: update release notes for v1.0.12 (8ad62d6)
@@ -49,5 +50,5 @@
 
 ## 👥 Contributors
 
-- Sandeep Kumar Pokala (45 commits)
+- Sandeep Kumar Pokala (47 commits)
 

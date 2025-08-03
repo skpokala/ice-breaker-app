@@ -1,5 +1,9 @@
 version: '3.8'
 
+# Production docker-compose using published images
+# Note: If Docker Hub images aren't available yet, use docker-compose.dev.yml for local builds
+# Command: docker-compose -f docker-compose.dev.yml up --build
+
 services:
   mongodb:
     image: mongo:7-jammy
@@ -23,7 +27,8 @@ services:
       start_period: 30s
 
   backend:
-    image: ghcr.io/skpokala/ice-breaker-app/backend:latest
+    image: skpokala/ice-breaker-app-backend:latest
+    platform: linux/amd64  # Specify platform for compatibility
     restart: unless-stopped
     environment:
       NODE_ENV: production
@@ -44,7 +49,8 @@ services:
       start_period: 40s
 
   frontend:
-    image: ghcr.io/skpokala/ice-breaker-app/frontend:latest
+    image: skpokala/ice-breaker-app-frontend:latest
+    platform: linux/amd64  # Specify platform for compatibility
     restart: unless-stopped
     ports:
       - "3000:80"
