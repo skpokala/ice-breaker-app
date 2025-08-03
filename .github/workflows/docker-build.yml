@@ -2,15 +2,16 @@ name: Build and Push Docker Images
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main, master, ghcr-test ]
     tags: [ 'v*' ]
   pull_request:
     branches: [ main, master ]
+  workflow_dispatch: # Allow manual triggers
 
 env:
   REGISTRY: ghcr.io
-  REPO_OWNER: ${{ github.repository_owner }}
-  REPO_NAME: ${{ github.event.repository.name }}
+  DOCKER_HUB_REGISTRY: docker.io
+  DOCKER_HUB_USERNAME: skpokala
 
 jobs:
   build-and-push:
@@ -39,92 +40,127 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
 
-    - name: Debug repository information
+    - name: Set image names and tags
+      run: |
+        echo "REPO_LOWER=${GITHUB_REPOSITORY,,}" >> $GITHUB_ENV
+        echo "IMAGE_TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+        if [[ $GITHUB_REF == refs/tags/* ]]; then
+          echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+        else
+          echo "VERSION=${GITHUB_SHA::8}" >> $GITHUB_ENV
+        fi
+
+    - name: Debug information
       run: |
         echo "Repository: ${{ github.repository }}"
-        echo "Repository owner: ${{ github.repository_owner }}"
-        echo "Repository name: ${{ github.event.repository.name }}"
-        echo "Event name: ${{ github.event_name }}"
+        echo "Lowercase repo: ${{ env.REPO_LOWER }}"
+        echo "Version: ${{ env.VERSION }}"
+        echo "Event: ${{ github.event_name }}"
         echo "Ref: ${{ github.ref }}"
         echo "Actor: ${{ github.actor }}"
 
-    - name: Log in to Container Registry
+    # Try GHCR first (primary registry)
+    - name: Log in to GitHub Container Registry
       if: github.event_name != 'pull_request'
       uses: docker/login-action@v3
       with:
         registry: ${{ env.REGISTRY }}
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
+      continue-on-error: true
+      id: ghcr-login
 
-    - name: Test registry authentication
+    # Fallback to Docker Hub if GHCR fails
+    - name: Log in to Docker Hub (fallback)
+      if: github.event_name != 'pull_request' && steps.ghcr-login.outcome == 'failure'
+      uses: docker/login-action@v3
+      with:
+        registry: ${{ env.DOCKER_HUB_REGISTRY }}
+        username: ${{ env.DOCKER_HUB_USERNAME }}
+        password: ${{ secrets.DOCKER_HUB_TOKEN }}
+      id: dockerhub-login
+
+    - name: Determine registry to use
       if: github.event_name != 'pull_request'
       run: |
-        echo "Testing GHCR authentication..."
-        docker buildx imagetools inspect ghcr.io/${{ github.repository_owner }}/hello-world:latest || echo "No existing images (expected for first run)"
+        if [[ "${{ steps.ghcr-login.outcome }}" == "success" ]]; then
+          echo "ACTIVE_REGISTRY=${{ env.REGISTRY }}" >> $GITHUB_ENV
+          echo "ACTIVE_REPO=${{ env.REPO_LOWER }}" >> $GITHUB_ENV
+          echo "Using GHCR as primary registry"
+        elif [[ "${{ steps.dockerhub-login.outcome }}" == "success" ]]; then
+          echo "ACTIVE_REGISTRY=${{ env.DOCKER_HUB_REGISTRY }}" >> $GITHUB_ENV
+          echo "ACTIVE_REPO=${{ env.DOCKER_HUB_USERNAME }}/ice-breaker-app" >> $GITHUB_ENV
+          echo "Using Docker Hub as fallback registry"
+        else
+          echo "No registry authentication succeeded"
+          exit 1
+        fi
 
-    - name: Build backend image (test build first)
+    # Build and push backend
+    - name: Build and push backend image
       uses: docker/build-push-action@v5
       with:
         context: ./backend
         file: ./backend/Dockerfile
-        push: false
+        push: ${{ github.event_name != 'pull_request' }}
         platforms: linux/amd64
         tags: |
-          ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/backend:latest
-          ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/backend:${{ github.sha }}
+          ${{ env.ACTIVE_REGISTRY }}/${{ env.ACTIVE_REPO }}/backend:latest
+          ${{ env.ACTIVE_REGISTRY }}/${{ env.ACTIVE_REPO }}/backend:${{ env.VERSION }}
         cache-from: type=gha
         cache-to: type=gha,mode=max
+        build-args: |
+          BUILDKIT_INLINE_CACHE=1
 
-    - name: Build frontend image (test build first)
+    # Build and push frontend
+    - name: Build and push frontend image
       uses: docker/build-push-action@v5
       with:
         context: ./frontend
         file: ./frontend/Dockerfile
-        push: false  
+        push: ${{ github.event_name != 'pull_request' }}
         platforms: linux/amd64
         tags: |
-          ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/frontend:latest
-          ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/frontend:${{ github.sha }}
+          ${{ env.ACTIVE_REGISTRY }}/${{ env.ACTIVE_REPO }}/frontend:latest
+          ${{ env.ACTIVE_REGISTRY }}/${{ env.ACTIVE_REPO }}/frontend:${{ env.VERSION }}
         cache-from: type=gha
         cache-to: type=gha,mode=max
-
-    - name: Push backend image
-      if: github.event_name != 'pull_request'
-      uses: docker/build-push-action@v5
-      with:
-        context: ./backend
-        file: ./backend/Dockerfile
-        push: true
-        platforms: linux/amd64
-        tags: |
-          ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/backend:latest
-          ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/backend:${{ github.sha }}
-        cache-from: type=gha
-
-    - name: Push frontend image
-      if: github.event_name != 'pull_request'
-      uses: docker/build-push-action@v5
-      with:
-        context: ./frontend
-        file: ./frontend/Dockerfile
-        push: true
-        platforms: linux/amd64
-        tags: |
-          ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/frontend:latest
-          ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/frontend:${{ github.sha }}
-        cache-from: type=gha
+        build-args: |
+          BUILDKIT_INLINE_CACHE=1
 
     - name: Generate deployment summary
       if: github.event_name != 'pull_request'
       run: |
         echo "## 🚀 Deployment Summary" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
-        echo "### Images Published:" >> $GITHUB_STEP_SUMMARY
-        echo "- **Backend**: \`ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/backend:latest\`" >> $GITHUB_STEP_SUMMARY
-        echo "- **Frontend**: \`ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/frontend:latest\`" >> $GITHUB_STEP_SUMMARY
+        echo "### 📦 Published Images" >> $GITHUB_STEP_SUMMARY
+        echo "- **Backend**: \`${{ env.ACTIVE_REGISTRY }}/${{ env.ACTIVE_REPO }}/backend:${{ env.VERSION }}\`" >> $GITHUB_STEP_SUMMARY
+        echo "- **Frontend**: \`${{ env.ACTIVE_REGISTRY }}/${{ env.ACTIVE_REPO }}/frontend:${{ env.VERSION }}\`" >> $GITHUB_STEP_SUMMARY
+        echo "- **Backend Latest**: \`${{ env.ACTIVE_REGISTRY }}/${{ env.ACTIVE_REPO }}/backend:latest\`" >> $GITHUB_STEP_SUMMARY
+        echo "- **Frontend Latest**: \`${{ env.ACTIVE_REGISTRY }}/${{ env.ACTIVE_REPO }}/frontend:latest\`" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
-        echo "### Quick Deploy:" >> $GITHUB_STEP_SUMMARY
-        echo "\`\`\`bash" >> $GITHUB_STEP_SUMMARY
-        echo "docker pull ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/backend:latest" >> $GITHUB_STEP_SUMMARY
-        echo "docker pull ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/frontend:latest" >> $GITHUB_STEP_SUMMARY
-        echo "\`\`\`" >> $GITHUB_STEP_SUMMARY 
+        echo "### 🔧 Build Details" >> $GITHUB_STEP_SUMMARY
+        echo "- **Version**: ${{ env.VERSION }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Registry**: ${{ env.ACTIVE_REGISTRY }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Commit**: ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Triggered by**: ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
+        
+        if [[ "${{ env.ACTIVE_REGISTRY }}" == "${{ env.REGISTRY }}" ]]; then
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🔗 View Packages" >> $GITHUB_STEP_SUMMARY
+          echo "- [Backend Package](https://github.com/${{ github.repository }}/pkgs/container/${{ github.event.repository.name }}%2Fbackend)" >> $GITHUB_STEP_SUMMARY
+          echo "- [Frontend Package](https://github.com/${{ github.repository }}/pkgs/container/${{ github.event.repository.name }}%2Ffrontend)" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🔗 View on Docker Hub" >> $GITHUB_STEP_SUMMARY
+          echo "- [Backend](https://hub.docker.com/r/${{ env.DOCKER_HUB_USERNAME }}/ice-breaker-app-backend)" >> $GITHUB_STEP_SUMMARY
+          echo "- [Frontend](https://hub.docker.com/r/${{ env.DOCKER_HUB_USERNAME }}/ice-breaker-app-frontend)" >> $GITHUB_STEP_SUMMARY
+        fi
+
+    - name: Update docker-compose files for latest tags
+      if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+      run: |
+        echo "Updating docker-compose files with new image references..."
+        sed -i "s|image: .*backend.*|image: ${{ env.ACTIVE_REGISTRY }}/${{ env.ACTIVE_REPO }}/backend:latest|g" docker-compose.yml || true
+        sed -i "s|image: .*frontend.*|image: ${{ env.ACTIVE_REGISTRY }}/${{ env.ACTIVE_REPO }}/frontend:latest|g" docker-compose.yml || true
+        echo "✅ Docker compose files updated" 
