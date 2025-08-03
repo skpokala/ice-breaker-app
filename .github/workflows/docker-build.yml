@@ -14,7 +14,7 @@ env:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     permissions:
       contents: read
       packages: write
@@ -22,6 +22,16 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
+
+    - name: Free up disk space
+      run: |
+        df -h
+        sudo rm -rf /usr/share/dotnet
+        sudo rm -rf /usr/local/lib/android
+        sudo rm -rf /opt/ghc
+        sudo rm -rf /opt/hostedtoolcache/CodeQL
+        sudo docker image prune --all --force
+        df -h
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
@@ -58,6 +68,13 @@ jobs:
           type=semver,pattern={{major}}.{{minor}}
           type=raw,value=latest,enable={{is_default_branch}}
 
+    - name: Debug backend context
+      run: |
+        echo "Backend context contents:"
+        ls -la ./backend/
+        echo "Package.json exists:" && test -f ./backend/package.json && echo "✅ Yes" || echo "❌ No"
+        echo "Dockerfile exists:" && test -f ./backend/Dockerfile && echo "✅ Yes" || echo "❌ No"
+
     - name: Build and push backend image
       uses: docker/build-push-action@v5
       with:
@@ -69,6 +86,15 @@ jobs:
         cache-from: type=gha
         cache-to: type=gha,mode=max
         platforms: linux/amd64
+        build-args: |
+          BUILDKIT_INLINE_CACHE=1
+
+    - name: Debug frontend context  
+      run: |
+        echo "Frontend context contents:"
+        ls -la ./frontend/
+        echo "Package.json exists:" && test -f ./frontend/package.json && echo "✅ Yes" || echo "❌ No"
+        echo "Dockerfile exists:" && test -f ./frontend/Dockerfile && echo "✅ Yes" || echo "❌ No"
 
     - name: Build and push frontend image
       uses: docker/build-push-action@v5
@@ -81,6 +107,8 @@ jobs:
         cache-from: type=gha
         cache-to: type=gha,mode=max
         platforms: linux/amd64
+        build-args: |
+          BUILDKIT_INLINE_CACHE=1
 
     - name: Generate deployment summary
       if: github.event_name != 'pull_request'
