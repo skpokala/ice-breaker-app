@@ -1,5 +1,61 @@
 [
   {
+    "version": "1.0.9",
+    "date": "2025-08-03T17:49:30.572Z",
+    "notes": "# Release 1.0.9\n\n**Release Date:** 2025-08-03\n\n**Changes:** 14 commits by 1 contributor\n\n## ✨ New Features\n\n- feat: add automated Docker build and push system (7cbc06d)\n- feat: Add comprehensive Docker deployment with ghcr.io (a7a9f38)\n- feat: Add comprehensive release notes system (1eae71f)\n- feat: Add automatic versioning system (a26296a)\n\n## 🐛 Bug Fixes\n\n- fix: Remove conflicting CI/CD workflow (4ffab4f)\n- fix: Docker build issues (e235a63)\n\n## 🔧 Other Changes\n\n- Initial commit: Team Ice Breaker App with user name functionality (0d872da)\n\n## 👥 Contributors\n\n- Sandeep Kumar Pokala (14 commits)\n\n",
+    "summary": {
+      "features": 4,
+      "fixes": 2,
+      "improvements": 0,
+      "breaking": 0,
+      "total": 7
+    },
+    "commits": [
+      {
+        "hash": "7cbc06d",
+        "subject": "feat: add automated Docker build and push system",
+        "author": "Sandeep Kumar Pokala",
+        "date": "2025-08-03"
+      },
+      {
+        "hash": "a7a9f38",
+        "subject": "feat: Add comprehensive Docker deployment with ghcr.io",
+        "author": "Sandeep Kumar Pokala",
+        "date": "2025-08-02"
+      },
+      {
+        "hash": "1eae71f",
+        "subject": "feat: Add comprehensive release notes system",
+        "author": "Sandeep Kumar Pokala",
+        "date": "2025-08-02"
+      },
+      {
+        "hash": "a26296a",
+        "subject": "feat: Add automatic versioning system",
+        "author": "Sandeep Kumar Pokala",
+        "date": "2025-08-02"
+      },
+      {
+        "hash": "4ffab4f",
+        "subject": "fix: Remove conflicting CI/CD workflow",
+        "author": "Sandeep Kumar Pokala",
+        "date": "2025-08-02"
+      },
+      {
+        "hash": "e235a63",
+        "subject": "fix: Docker build issues",
+        "author": "Sandeep Kumar Pokala",
+        "date": "2025-08-02"
+      },
+      {
+        "hash": "0d872da",
+        "subject": "Initial commit: Team Ice Breaker App with user name functionality",
+        "author": "Sandeep Kumar Pokala",
+        "date": "2025-08-02"
+      }
+    ]
+  },
+  {
     "version": "1.0.8",
     "date": "2025-08-03T01:54:14.635Z",
     "notes": "# Release 1.0.8\n\n**Release Date:** 2025-08-03\n\n**Changes:** 12 commits by 1 contributor\n\n## ✨ New Features\n\n- feat: Add comprehensive Docker deployment with ghcr.io (a7a9f38)\n- feat: Add comprehensive release notes system (1eae71f)\n- feat: Add automatic versioning system (a26296a)\n\n## 🐛 Bug Fixes\n\n- fix: Remove conflicting CI/CD workflow (4ffab4f)\n- fix: Docker build issues (e235a63)\n\n## 🔧 Other Changes\n\n- Initial commit: Team Ice Breaker App with user name functionality (0d872da)\n\n## 👥 Contributors\n\n- Sandeep Kumar Pokala (12 commits)\n\n",

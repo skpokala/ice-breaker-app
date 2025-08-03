@@ -1,0 +1,58 @@
+name: Simple Docker Build Test
+
+on:
+  workflow_dispatch: # Manual trigger only
+  push:
+    branches: [ simple-test ]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  simple-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Free up space
+      run: |
+        sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc
+        docker system prune -af
+
+    - name: Login to ghcr.io
+      uses: docker/login-action@v3
+      with:
+        registry: ${{ env.REGISTRY }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Simple backend build
+      run: |
+        cd backend
+        echo "Building backend with simple docker build..."
+        docker build -t ghcr.io/${{ github.repository }}/backend:simple .
+        echo "✅ Backend build successful"
+
+    - name: Simple frontend build
+      run: |
+        cd frontend
+        echo "Building frontend with simple docker build..."
+        docker build -t ghcr.io/${{ github.repository }}/frontend:simple .
+        echo "✅ Frontend build successful"
+
+    - name: Push images
+      run: |
+        echo "Pushing images..."
+        docker push ghcr.io/${{ github.repository }}/backend:simple
+        docker push ghcr.io/${{ github.repository }}/frontend:simple
+        echo "✅ All images pushed successfully"
+
+    - name: Cleanup
+      run: docker system prune -af 

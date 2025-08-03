@@ -1,11 +1,12 @@
-# Release 1.0.8
+# Release 1.0.9
 
 **Release Date:** 2025-08-03
 
-**Changes:** 12 commits by 1 contributor
+**Changes:** 14 commits by 1 contributor
 
 ## ✨ New Features
 
+- feat: add automated Docker build and push system (7cbc06d)
 - feat: Add comprehensive Docker deployment with ghcr.io (a7a9f38)
 - feat: Add comprehensive release notes system (1eae71f)
 - feat: Add automatic versioning system (a26296a)
@@ -21,5 +22,5 @@
 
 ## 👥 Contributors
 
-- Sandeep Kumar Pokala (12 commits)
+- Sandeep Kumar Pokala (14 commits)
 
