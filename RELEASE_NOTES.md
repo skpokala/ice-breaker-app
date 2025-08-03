@@ -1,8 +1,8 @@
-# Release 1.0.11
+# Release 1.0.12
 
 **Release Date:** 2025-08-03
 
-**Changes:** 34 commits by 1 contributor
+**Changes:** 36 commits by 1 contributor
 
 ## ✨ New Features
 
@@ -31,6 +31,7 @@
 
 ## 🔧 Other Changes
 
+- MAJOR SIMPLIFICATION: Rebuild Docker workflow from scratch (0ee5a66)
 - CRITICAL FIX: Implement proper fallback logic for Docker workflow (b7aa332)
 - trigger: GHCR authentication test (515adde)
 - add: Docker Hub backup workflow and immediate fix plan for persistent GHCR 403 errors (63ae775)
@@ -40,5 +41,5 @@
 
 ## 👥 Contributors
 
-- Sandeep Kumar Pokala (34 commits)
+- Sandeep Kumar Pokala (36 commits)
 
