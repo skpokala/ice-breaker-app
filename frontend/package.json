@@ -1,6 +1,6 @@
 {
   "name": "ice-breaker-frontend",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
