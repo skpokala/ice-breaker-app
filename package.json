@@ -19,9 +19,16 @@
     "docker:build": "./scripts/deploy.sh build",
     "docker:stop": "./scripts/deploy.sh stop",
     "docker:health": "./scripts/deploy.sh health",
+    "docker:build-only": "./scripts/docker-build-push.sh build",
+    "docker:push": "./scripts/docker-build-push.sh push",
+    "docker:push-version": "./scripts/docker-build-push.sh push-version",
     "deploy:patch": "npm run version:patch && git add . && git commit -m \"feat: release version $(node -p require('./package.json').version)\" && git push",
     "deploy:minor": "npm run version:minor && git add . && git commit -m \"feat: minor release version $(node -p require('./package.json').version)\" && git push",
-    "deploy:major": "npm run version:major && git add . && git commit -m \"feat: major release version $(node -p require('./package.json').version)\" && git push"
+    "deploy:major": "npm run version:major && git add . && git commit -m \"feat: major release version $(node -p require('./package.json').version)\" && git push",
+    "build:all": "npm run build && npm run docker:build-only",
+    "release:patch": "npm run version:patch && npm run docker:push && git add . && git commit -m \"feat: release version $(node -p require('./package.json').version)\" && git push",
+    "release:minor": "npm run version:minor && npm run docker:push && git add . && git commit -m \"feat: minor release version $(node -p require('./package.json').version)\" && git push",
+    "release:major": "npm run version:major && npm run docker:push && git add . && git commit -m \"feat: major release version $(node -p require('./package.json').version)\" && git push"
   },
   "keywords": [
     "ice-breaker",
