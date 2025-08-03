@@ -6,8 +6,8 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 
-# Clean install with verbose output for debugging
-RUN npm ci --verbose
+# Install dependencies with verbose output for debugging
+RUN npm install --verbose
 
 # Verify installation
 RUN npm list --depth=0
