@@ -1,6 +1,6 @@
 {
   "name": "ice-breaker-backend",
-  "version": "1.0.19",
+  "version": "1.0.20",
   "description": "Backend API for ice breaker questions app",
   "main": "server.js",
   "scripts": {
