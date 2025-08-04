@@ -26,6 +26,11 @@ RUN npm run build
 # Production stage
 FROM nginx:alpine
 
+# Add GHCR labels for proper package linking and permissions
+LABEL org.opencontainers.image.source=https://github.com/skpokala/ice-breaker-app
+LABEL org.opencontainers.image.description="Ice Breaker App Frontend - React application with nginx"
+LABEL org.opencontainers.image.licenses=MIT
+
 # Copy built assets from build stage
 COPY --from=build /app/build /usr/share/nginx/html
 

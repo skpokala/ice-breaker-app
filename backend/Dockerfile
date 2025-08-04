@@ -1,5 +1,10 @@
 FROM node:18-alpine
 
+# Add GHCR labels for proper package linking and permissions
+LABEL org.opencontainers.image.source=https://github.com/skpokala/ice-breaker-app
+LABEL org.opencontainers.image.description="Ice Breaker App Backend - Node.js API server"
+LABEL org.opencontainers.image.licenses=MIT
+
 WORKDIR /app
 
 # Copy package files
