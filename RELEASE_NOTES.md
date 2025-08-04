@@ -1,11 +1,13 @@
-# Release 1.0.18
+# Release 1.0.20
 
 **Release Date:** 2025-08-04
 
-**Changes:** 50 commits by 1 contributor
+**Changes:** 54 commits by 1 contributor
 
 ## ✨ New Features
 
+- feat: trigger workflow to test GHCR fix with Docker labels (0efe8af)
+- chore: add version bump changes to complete GHCR fix (b46d29e)
 - CRITICAL FIX: Add GHCR labels to Dockerfiles for proper package permissions (8cb0d22)
 - fix: update docker-compose.yml to use Docker Hub images and add platform compatibility (bc43d31)
 - Fix Docker workflow: consolidate builds, add fallback registry, optimize performance (274ce32)
@@ -52,5 +54,5 @@
 
 ## 👥 Contributors
 
-- Sandeep Kumar Pokala (50 commits)
+- Sandeep Kumar Pokala (54 commits)
 
